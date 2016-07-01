@@ -12,17 +12,13 @@ Approximate time: 30 min
 
 ## Writing files
 
-We've been able to do a lot of work with files that already exist, but what if we want to write our own files. Obviously, we're not going to type in a FASTA file, but you'll see as we go through other tutorials, there are a lot of reasons we'll want to write/create a file or edit an existing file.
+We've been able to do a lot of work with files that already exist, but what if we want to write our own files. Obviously, we're not going to type in a FASTA file, but you'll see as we go, there are a lot of reasons we'll want to write/create a file or edit an existing file.
 
-To create or edit files we will need to use a text editor.
-
-## Text editors
-
-When we say, "text editor," we really do mean "text": these editors can
+To create or edit files we will need to use a **text editor**. When we say, "text editor," we really do mean "text": these editors can
 only work with plain character data, not tables, images, or any other
 media. The types of text editors available can generally be grouped into **graphical user interface (GUI) text editors** and **command-line editors**.
 
-###GUI text editors
+### GUI text editors
 
 A GUI is an interface that has buttons and menus that you can click on to issue commands to the computer and you can move about the interface just by pointing and clicking. You might be familar with GUI text editors, such as [TextWrangler](http://www.barebones.com/products/textwrangler/), [Sublime](http://www.sublimetext.com/), and [Notepad++](http://notepad-plus-plus.org/), which allow you to write and edit plain text documents. These editors often have features to easily search text, extract text, and highlight syntax from multiple programming languages. They are great tools, but since they are 'point-and-click', we cannot efficiently use them from the command line remotely on a compute cluster.
 
@@ -30,19 +26,19 @@ A GUI is an interface that has buttons and menus that you can click on to issue 
 
 When working remotely, we need a text editor that functions from the command line interface. Within these editors, since you cannot 'point-and-click', you must navigate the interface using the arrow keys and shortcuts. 
 
-While there are simpler editors available for use (i.e. [nano](http://www.nano-editor.org/), most computational scientists tend to favor editors that have greater functionality. Some popular editors include [Emacs](http://www.gnu.org/software/emacs/), [Vim](http://www.vim.org/), or a graphical editor such as[Gedit](http://projects.gnome.org/gedit/). These are editors which are generally available for use on high-performance compute clusters.
+While there are simpler editors available for use (i.e. [nano](http://www.nano-editor.org/)), most computational scientists tend to favor editors that have greater functionality. Some popular editors include [Emacs](http://www.gnu.org/software/emacs/), [Vim](http://www.vim.org/), or a graphical editor such as [Gedit](http://projects.gnome.org/gedit/). These are editors which are generally available for use on high-performance compute clusters.
 
-## Introduction to Vim 
+#### Introduction to Vim 
 
-To write and edit files, we're going to use a text editor called `vim`. Vim is a very powerful text editor, and it offers extensive text editing options. However, in this introduction we are going to focus on exploring some of the more basic functions. There is a lot of functionality that we are not going to cover during this session, but encourage you to go further as you become more comfortable using it. To help you remember some of the keyboard shortcuts that are introduced below and to allow you to explore additional functionality on your own, we have compiled a [cheatsheet](../../resources/VI_CommandReference.pdf).
+To write and edit files, we're going to use a text editor called 'Vim'. Vim is a very powerful text editor, and it offers extensive text editing options. However, in this introduction we are going to focus on exploring some of the more basic functions. There is a lot of functionality that we are not going to cover during this session, but encourage you to go further as you become more comfortable using it. To help you remember some of the keyboard shortcuts that are introduced below and to allow you to explore additional functionality on your own, we have compiled a [cheatsheet](../../resources/VI_CommandReference.pdf).
 
 
-### Vim Interface
+#### Vim Interface
 
 You can create a document by calling a text editor and providing the name of the document you wish to create. Change directories to the `unix_lesson` folder and create a document using `vim` entitled `draft.txt`:
 
 ```bash
-$ cd ~/ngs_course/unix_lesson
+$ cd ~/ngs_course/unix_lesson/other
 	
 $ vim draft.txt
 ```
@@ -50,7 +46,7 @@ $ vim draft.txt
 Notice the `"draft.txt" [New File]` typed at the bottom left-hand section of the screen. This tells you that you just created a new file in vim. 
 
 
-### Vim Modes
+#### Vim Modes
 Vim has **_two basic modes_** that will allow you to create documents and edit your text:   
 
 - **_command mode (default mode):_** will allow you to save and quit the program (and execute other more advanced commands).  
@@ -64,7 +60,7 @@ Upon creation of a file, vim is automatically in command mode. Let's _change to 
 
 After you have finished typing, press `esc` to enter command mode. Notice the `--INSERT--` disappeared from the bottom of the screen.
 
-### Vim Saving and Quitting
+#### Vim Saving and Quitting
 To **write to file (save)**, type `:w`. You can see the commands you type in the bottom left-hand corner of the screen. 
 
 ![vim-save](../img/vim_save.png)
@@ -79,7 +75,7 @@ To edit your `draft.txt` document, open up the file again by calling vim and ent
  
 ![vim-quit](../img/vim_quit.png)
 
-### Vim Editing
+#### Vim Editing
 Create the document "spider.txt" in vim. Enter the text as follows: 
 
 ![image](../img/vim_spider.png)
@@ -92,8 +88,8 @@ While we cannot point and click to navigate the document, we can use the arrow k
 
 	`gg`: move to top of file  
 	`G`: move to bottom of file  
+	`$`: move to end of line 
 	`0`: move to beginning of line  
-	`$`: move to end of line  
 	`w`: move to next word
 	`b`: move to previous word
 
@@ -144,8 +140,8 @@ practice what we just learned in a brief challenge.
 
 	`gg`: move to top of file  
 	`G`: move to bottom of file  
+	`$`: move to end of line 
 	`0`: move to beginning of line  
-	`$`: move to end of line  
 	`w`: move to next word
 	`b`: move to previous word
 

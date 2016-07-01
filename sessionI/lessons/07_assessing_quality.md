@@ -10,15 +10,20 @@ Approximate time: 60 minutes
 
 * Understand the experiment and its objectives
 * Learn how to evaluate the quality of your NGS data using the program FastQC
-* Use a `for` loop to automate operations on multiple files
+* Use a `for loop` to automate operations on multiple files
 * Create a job submission script to automate quality assessment
 * Learning best practices for NGS analysis
 
 
 ## Understanding the dataset
-The dataset we are using is part of a larger study described in [Kenny PJ et al, Cell Rep 2014](http://www.ncbi.nlm.nih.gov/pubmed/25464849). The authors are investigating interactions between various genes involved in Fragile X syndrome, a disease in which there is aberrant production of the FMRP protein. FMRP is present in many tissues, of which the brain is of great relevance. In the brain, it may play a role in the development of connections between nerve cells (synapses), where cell-to-cell communication occurs. The FMRP protein has also been linked to the microRNA pathway, as it has been shown to be involved in miRNA mediated translational suppresion. **The authors sought to show that FMRP associates with the RNA helicase MOV10, that is also associated with the microRNA pathway.**
+The dataset we are using is part of a larger study described in [Kenny PJ et al, Cell Rep 2014](http://www.ncbi.nlm.nih.gov/pubmed/25464849). The authors are investigating interactions between various genes involved in Fragile X syndrome, a disease of aberrant protein production, which results in cognitive impairment and autistic-like features. **The authors sought to show that RNA helicase MOV10 regulates the translation of RNAs involved in Fragile X syndrome.**
 
-From this study we are using the [RNA-Seq](http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE50499) data which is publicly available in the [SRA](http://www.ncbi.nlm.nih.gov/sra). The RNA was extracted from HEK293F cells that were transfected with a MOV10 transgene and normal control cells. Using this data, we will evaluate transcriptional patterns associated with MOV10 overexpression. The libraries for this dataset are stranded and were generated using the dUTP method. Sequencing was carried out on the Illumina HiSeq-2500 for 100bp single end reads. The full dataset was sequenced to ~40 million reads per sample, but for this workshop we will be looking at a small subset on chr1 (~300,000 reads/sample). For each group we have three replicates as described in the figure below.
+From this study we are using the [RNA-Seq](http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE50499) data which is publicly available in the [SRA](http://www.ncbi.nlm.nih.gov/sra). The details of the experimental design are:
+* The RNA was extracted from **HEK293F cells** that were transfected with a MOV10 transgene or an irrelevant siRNA.  
+* The libraries for this dataset are **stranded** and were generated using the **dUTP method**. 
+* Sequencing was carried out on the **Illumina HiSeq-2500 for 100bp single end** reads. 
+* The full dataset was sequenced to **~40 million reads** per sample, but for this workshop we will be looking at a small subset on chr1 (~300,000 reads/sample).
+* For each group we have three replicates as described in the figure below.
 
 
 ![Automation](../img/exp_design.png)
@@ -93,13 +98,17 @@ Exit the interactive session and start a new one with 6 cores, and use the multi
 $ exit  #exit the current interactive session
 
 $ bsub -Is -n 6 -q interactive bash   #start a new session with 6 cpus (-n 6)
+
 $ module load seq/fastqc/0.11.3  #reload the module for the new session
+
+$ cd ~/ngs_course/rnaseq/data/untrimmed_fastq
+
 $ fastqc -t 6 *.fq  #note the extra parameter we specified for 6 threads
 ```
 
 How did I know about the -t argument for FastQC?
 
-`$ fastqc -help`
+`$ fastqc --help`
 
 
 Now, let's create a home for our results
@@ -109,8 +118,7 @@ Now, let's create a home for our results
 ...and move them there (recall, we are still in `~/ngs_course/rnaseq/data/untrimmed_fastq/`)
 
 ```
-$ mv *.zip ~/ngs_course/rnaseq/results/fastqc_untrimmed_reads/
-$ mv *.html ~/ngs_course/rnaseq/results/fastqc_untrimmed_reads/
+$ mv *fastqc* ~/ngs_course/rnaseq/results/fastqc_untrimmed_reads/
 ```
 
 ###B. Results
@@ -133,15 +141,14 @@ Open *FileZilla*, and click on the File tab. Choose 'Site Manager'.
 Within the 'Site Manager' window, do the following: 
 
 1. Click on 'New Site', and name it something intuitive (e.g. Orchestra)
-2. Host: orchestra.med.harvard.edu 
+2. Host: transfer.orchestra.med.harvard.edu 
 3. Protocol: SFTP - SSH File Transfer Protocol
 4. Logon Type: Normal
 5. User: ECommons ID
 6. Password: ECommons password
 7. Click 'Connect'
-	
-![FileZilla_step2](../img/Filezilla_step2.png)
 
+<img src=../img/Filezilla_step2.png width=500>	
 	
 ***FastQC is just an indicator of what's going on with your data, don't take the "PASS"es and "FAIL"s too seriously.***
 
@@ -191,7 +198,7 @@ it will run unzip once for each file (whose name is stored in the $zip variable)
 
 The 'for loop' is interpreted as a multipart command.  If you press the up arrow on your keyboard to recall the command, it will be shown like so:
 
-    for zip in *.zip; do echo File $zip; unzip $zip; done
+    for zip in *.zip; do unzip $zip; done
 
 When you check your history later, it will help you remember what you did!
 
@@ -200,14 +207,14 @@ When you check your history later, it will help you remember what you did!
 What information is contained in the unzipped folder?
 
 ```
-$ ls -lh *fastqc
-$ head *fastqc/summary.txt
+$ ls -lh Mov10_oe_1.subset_fastqc
+$ head Mov10_oe_1.subset_fastqc/summary.txt
 ```
 
 To save a record, let's `cat` all `fastqc summary.txt` files into one `full_report.txt` and move this to `~/ngs_course/rnaseq/docs`. 
 You can use wildcards in paths as well as file names.  Do you remember how we said `cat` is really meant for concatenating text files?
     
-`$ cat */summary.txt > ~/ngs_course/rnaseq/docs/fastqc_summaries.txt`
+`$ cat */summary.txt > ~/ngs_course/rnaseq/logs/fastqc_summaries.txt`
 
 ## Performing quality assessment using job submission scripts
 So far in our FASTQC analysis, we have been directly submitting commands to Orchestra using an interactive session (ie. `bsub -Is -n 6 -q interactive bash`). However, there are many more queues available on Orchestra than just the interactive queue. We can submit commands or series of commands to these queues using job submission scripts. 
@@ -219,7 +226,13 @@ $ bsub < job_submission_script.lsf
 ```
 Submission of the script using the `bsub` command allows the load sharing facility (LSF) to run your job when its your turn. Let's create a job submission script to load the FASTQC module, run FASTQC on all of our fastq files, and move the files to the appropriate directory.
 
-Create a script named `mov10_fastqc.lsf` in `vim`. *Don't forget to enter insert mode, `i`, to start typing*.
+Change directories to `~/ngs_course/rnaseq`, and create a script named `mov10_fastqc.lsf` in `vim`. *Don't forget to enter insert mode, `i`, to start typing*.
+
+```
+$ cd ~/ngs_course/rnaseq
+
+$ vim mov10_fastqc.lsf
+```
 
 The first thing we need in our script is the **shebang line**:
 
@@ -240,7 +253,7 @@ Following the shebang line are the Orchestra options. For the script to run, we 
 Now in the body of the script, we can include any commands we want run:
 
 ```bash
-## Changing directories to where I want my FASTQC output files to be saved
+## Changing directories to where the fastq files are located
 cd ~/ngs_course/rnaseq/data/untrimmed_fastq
 
 ## Loading modules required for script commands
@@ -250,18 +263,30 @@ module load seq/fastqc/0.11.3
 fastqc -t 6 *.fq
 
 ## Moving files to our results directory
-mv *.zip ../../results/fastqc_untrimmed_reads/
-mv *.html ../../results/fastqc_untrimmed_reads/
+mv *fastqc* ../../results/fastqc_untrimmed_reads/
+```
+
+Save and quit the script. Now, let's submit the job to the LSF:
+
+```
+$ bsub < mov10_fastqc.lsf
 ```
 
 You can check on the status of your job with:
 ```
-bjobs
+$ bjobs
 ```
 
 When your job is finished, check the results directory for the output files:
-```bash
-ls -lh ~/ngs_course/rnaseq/results/fastqc_untrimmed_reads/
+```
+$ ls -lh results/fastqc_untrimmed_reads/
+```
+
+There should also be standard error (`.err`) and standard out (`.out`) files from the job listed in `~/ngs_course/rnaseq`. You can move these over to your `logs` directory and give them more intuitive names:
+
+``` 
+mv *.err logs/fastqc.err
+mv *.out logs/fastqc.out
 ```
 
 ***

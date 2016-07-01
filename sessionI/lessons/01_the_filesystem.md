@@ -36,11 +36,13 @@ Since we are going to be working with this data on our remote server, **Orchestr
 
 #### Logging onto Orchestra with Macs
 
-Using the Terminal, you can use the command 'ssh' and your eCommons username to login. Type:
+Using the Terminal, you can use the command 'ssh' and your eCommons username to login. 
+
+Type:
 
 ```ssh username@orchestra.med.harvard.edu```
 
-You will receive a prompt for your password, and you should type in your ECommons password. 
+You will receive a prompt for your password, and you should type in your eCommons password. [Note: When you are typing in your password, the cursor will not move!]
 
 #### Logging onto Orchestra with Windows
 
@@ -67,7 +69,7 @@ Once logged in, you should see the Orchestra news and the command prompt:
 
 ```$ ```
 
-The command prompt will have some characters before it, something like "-bash-4.1", this is telling you what the name of the computer you are working on is.
+The command prompt will have some characters before it, something like `-bash-4.1` or `username@loge`, this is telling you what the name of the computer you are working on is.
 
 The first command we will type on the command prompt will be to start a so-called "interactive session" on Orchestra.
 
@@ -83,9 +85,9 @@ Let's make a a directory in your home folder for everything we do in this NGS Da
 
 Copy the data folder `unix_lesson` from a shared directory/folder on Orchestra into your new directory using the following command:
 
-```$ cp -r /groups/hbctraining/ngs-data-analysis2016/unix_lesson/ ngs_course/```
+```$ cp -r /groups/hbctraining/ngs-data-analysisSummer2016/unix_lesson/ ngs_course/```
 
->'cp' is the command for copy. This command required you to specify the location of the item you want to copy (/groups/hbctraining/ngs-data-analysis2016/unix_lesson/) and the location of the destination (ngs_course/) please note the space between the 2 in the command. The "-r" is an option that modifies the copy command to do something slightly different than usual.
+>'cp' is the command for copy. This command requires you to specify the location of the item you want to copy (/groups/hbctraining/ngs-data-analysis2016/unix_lesson/) and the location of the destination (ngs_course/). **Please note the space between the 2 locations.** The "-r" is an option that modifies the copy command to do something slightly different than usual.
 
 ## Starting with the shell
 
@@ -175,7 +177,39 @@ That root (/) is often also called the 'top' level.
 
 When you log in to a remote computer you are on one of the branches of that tree, your home directory (e.g. /home/username)
 
-> On mac OS, which is a UNIX-based OS, the root level is also "/". On a windows OS, it is drive specific; generally "C:\" is considered root, but it changes to "D:/", if you are on that drive.
+> On mac OS, which is a UNIX-based OS, the root level is also "/". On a windows OS, it is drive specific; generally "C:\" is considered root, but it changes to "D:\", if you are on that drive.
+
+This tree can also be represented as follows:
+
+```
+/ (root)
+├── home/
+    ├── rsk27/
+        ├── ngs_course/
+            ├── unix_lesson/
+                ├── genomics_data/
+                    ├── genes_subset.fa
+                    ├── Mov10_rnaseq_metadata.txt
+                    ├── .
+                    ├── .
+                ├── raw_fastq/
+                    ├── Irrel_kd_3.subset.fq
+                    ├── Mov10_oe_1.subset.fq
+                    ├── Mov10_oe_2.subset.fq
+                    ├── .
+                    ├── .
+                ├── README.txt
+                └── reference_data/
+                    ├── chr1-hg19_genes.gtf
+                    └── chr1.fa
+    ├── mm573
+    ├── .
+    ├── .
+├── bin/
+├── opt/
+├── .
+└── .
+```
 
 Now let's go do that same navigation at the command line.
 
@@ -230,8 +264,7 @@ $ pwd
 
 You should now be in `raw_fastq` and you got there without having to step through the intermediate directories. 
 
-> If you are aware of the directory structure, you can string together as long a list as you like. (Also see note about Tab Completion later in this lesson).
-
+> If you are aware of the directory structure, you can string together as long a list as you like. (Also see note about Tab Completion later in this lesson). Think of the second tree diagram above when you are putting together the route to a directory.
 
 ****
 
@@ -243,13 +276,15 @@ List the `Mov10_oe_1.subset.fq` file from your home directory without changing d
 
 ## Full vs. Relative Paths
 
-The `cd` command takes an argument which is the directory name. Directories can be specified using either a *relative path* or a *full path*. As we know, the directories on the computer are arranged into a hierarchy. The full path tells you where a directory is in that hierarchy. Navigate to the home directory (`cd`). Now, enter the `pwd` command and you should see:
+The `cd` command takes an argument which is the directory name. Directories can be specified using either a *relative path* or a *full path*. 
+
+As we know, the directories on the computer are arranged into a hierarchy, and the full path tells you where a directory is in that hierarchy, starting with the root `/` directory. Navigate to the home directory (`cd`). Now, enter the `pwd` command and you should see:
 
 `$ pwd`
 
 `/home/<username>`
 
-which is the full path for your home directory. This tells you that you are in a directory called `username`, which sits inside a directory called `home` which sits inside the very top directory in the hierarchy, the *root directory*. So, to summarize: `username` is a directory in `home` which is a directory in `/`.
+which is the full path for your home directory. This tells you that you are in a directory called `username`, which sits inside a directory called `home` which sits inside the very top directory in the hierarchy, the *root directory*. So, to summarize: `username` is a directory in `home` which is a directory in the top level root `/` directory.
 
 Now enter the following command:
 
@@ -262,63 +297,48 @@ earlier that the command:
 
 had the same effect - it took us to the `raw_fastq` directory. But, instead of specifying the full path (`/home/username/ngs_course/unix_lesson/raw_fastq`), we specified a *relative path*. In other words, we specified the path **relative to our current working directory**. 
 
-A full path always starts with a `/`, a relative path does not.
+A full path always starts with `/`, a relative path does not.
 
 A relative path is like getting directions from someone on the street. They tell you to "go right at the Stop sign, and then turn left on Main Street". That works great if you're standing there together, but not so well if you're trying to tell someone how to get there from another country. A full path is like GPS coordinates. It tells you exactly where something is no matter where you are right now.
 
-You can usually use either a full path or a relative path depending on what is most convenient. If we are in the home directory, it is more convenient to just enter the relative path since it involves less typing.
+You can usually use either a full path or a relative path depending on what is most convenient and what the tool we are using requires.
 
-Over time, it will become easier for you to keep a mental note of the structure of the directories that you are using and how to quickly navigate amongst them.
+Over time, it will become easier for you to keep a mental note of the structure of the directories that you are using and how to quickly navigate amongst them using relative paths.
 
 
 ***
 
 **Exercise**
 
-* Change directories to `~/ngs_course/unix_lesson/raw_fastq/`, and list the contents of `unix_lesson/genomics_data` without changing directories again.
+* Change directories to `/home/username/ngs_course/unix_lesson/raw_fastq/`, and list the contents of `unix_lesson/genomics_data` without changing directories again.
 
 * List the contents of the `/bin` directory. Do you see anything familiar in there? How can you tell these are programs rather than plain files?
 
 ***
 
-## Saving time with shortcuts, wild cards, and tab completion
+## Saving time with tab completion, wildcards and other shortcuts 
 
-#### Shortcuts
+#### Tab Completion
 
-There are several shortcuts which you should know about, but today we are going to talk about only a few. As you continue to work with the shell and on the terminal a lot more, you will come across and hopefully adapt many other shortcuts. 
+Typing out directory names can waste a lot of time and generate a ton of typos. There is a really easy shortcut to help with this.
 
-The home directory is often listed in commands, so a shortcut for it seems like a good idea. In the shell the tilde character, "~", is a shortcut for your home directory. Navigate to the `raw_fastq` directory:
+Navigate to the home directory, start typing out the name of a directory, then hit the tab key: 
 
-```$ cd```
+```$ cd ngs<tab>```
 
-```$ cd ngs_course/unix_lesson/raw_fastq```
+the shell tries to fill in the rest of the directory using the list of files and folders in that directory. In this case, the shell will fill in the rest of the directory name for `ngs_course`. 
 
-Then enter the command:
+Now, navigate to `ngs_course/unix_lesson/raw_fastq` and type:
 
-```$ ls ~```
+```$ ls Mov10_oe_<tab><tab>```
 
-This prints the contents of your home directory, without you having to type the full path because the tilde "~" is equivalent to "/home/username".
+When you hit the first tab, nothing happens. The reason is that there are multiple files in `raw_fastq` which start with `Mov10_oe_`. Thus, the shell does not know which one to fill in. When you hit tab again, the shell will list the possible choices.
 
-Another shortcut is the "..", which we encountered earlier:
+Tab completion can also fill in the names of commands. For example, enter `e<tab><tab>`. You will see the name of every command that starts with an `e`. One of those is `echo`. If you enter `ec<tab>` you will see that tab completion works. 
 
-```$ ls ..```
-
-The shortcut `..` always refers to the directory above your current directory. So, it prints the contents of the `unix_lesson`. You can chain these together, so:
-
-```$ ls ../..```
-
-prints the contents of `/home/username` which is your home directory. 
-
-Finally, the special directory `.` always refers to your current directory. So, `ls`, `ls .`, and `ls ././././.` all do the same thing, they print the contents of the current directory. This may seem like a useless shortcut right now, but it is needed to specify a destination, e.g. `cp ../data/counts.txt .` or `mv ~/james-scripts/parse-fasta.sh .`.
-
-
-To summarize, while you are in your home directory, the commands `ls ~`, `ls ~/.`, and `ls /home/username` all do exactly the same thing. These shortcuts are not necessary, but they are really convenient!
-
+> **Tab completion is your friend!** It helps prevent spelling mistakes, and speeds up the process of typing in the (full or relative) path.
 
 #### Wild cards
-
-Navigate to the `~/ngs_course/unix_lesson/raw_fastq` directory. This
-directory contains FASTQ files from our RNA-Seq experiment. 
 
 The '*' character is a shortcut for "everything". Thus, if you enter `ls *`, you will see all of the contents of a given directory. Now try this command:
 
@@ -353,22 +373,34 @@ BONUS: List all of the files in `/bin` that contain the letter 'a' or 'c'.
 
 ****
 
-#### Tab Completion
+#### Other shortcuts
 
-Navigate to the home directory. Typing out directory names can waste a lot of time. When you start typing out the name of a directory, then hit the tab key, the shell will try to fill in the rest of the directory name. For example, type `cd` to get back to your home directly, then enter:
+There are several more shortcuts which you should know about, but today we are talking about only a few. As you continue to work with the shell and on the terminal, you will come across and likely adopt many other shortcuts. 
 
-```$ cd ngs<tab>```
+The home directory is often listed in commands, so a shortcut for it seems like a good idea. In the shell the tilde character, `~`, is a shortcut for your home directory. 
 
-The shell will fill in the rest of the directory name for `ngs_course`. Now go to `ngs_course/unix_lesson/raw_fastq` and type:
+Make sure your working directory is still `/home/username/ngs_course/unix_lesson/raw_fastq/`, and then enter the command:
 
-```$ ls Mov10_oe_<tab><tab>```
+```$ ls ~```
 
-When you hit the first tab, nothing happens. The reason is that there are multiple files in `raw_fastq` which start with `Mov10_oe_`. Thus, the shell does not know which one to fill in. When you hit tab again, the shell will list the possible choices.
+This prints the contents of your home directory, without you having to type the full path because the tilde `~` is equivalent to "/home/username".
 
-Tab completion can also fill in the names of commands. For example, enter `e<tab><tab>`. You will see the name of every command that starts with an `e`. One of those is `echo`. If you enter `ec<tab>` you will see that tab completion works. 
+You can use the `~` in paths too:
 
-> **Tab completion is your friend!** It helps prevent spelling mistakes, and speeds up the process of typing in the (full or relative) path.
+```ls ~/ngs_course/unix_lesson/reference_data/```
 
+Another shortcut is the "..", which we encountered earlier:
+
+```$ ls ..```
+
+The shortcut `..` always refers to the directory above your current directory and is a very important when using relative paths. So, it prints the contents of the `unix_lesson`. You can chain this together with another directory in `unix_lesson`, so:
+
+```$ ls ../reference_data```
+
+Finally, the special directory `.` always refers to your current directory. So, `ls`, `ls .`, and `ls ././././.` all do the same thing, they print the contents of the current directory. This may seem like a useless shortcut right now, but it is needed to specify a destination, e.g. `cp ../data/counts.txt .` or `mv ~/james-scripts/parse-fasta.sh .`.
+
+
+To summarize, while you are in your home directory, the commands `ls ~`, `ls ~/.`, and `ls /home/username` all do exactly the same thing. These shortcuts are not necessary, but they are really convenient!
 
 #### Command History
 
@@ -478,73 +510,78 @@ The `-n` option to either of these commands can be used to print the first or la
 
 ## Creating, moving, copying, and removing
 
-Now we can move around in the directory structure, look at files, search files. But what if we want to do normal things like copy files or move them around or get rid of them. 
+Now we can move around in the file structure, look at files, search files, redirect. But what if we want to do normal things like copy files or move them around or get rid of them. Sure we could do most of these things without the command line, but what fun would that be?! Besides it's often faster to do it at the command line, or you'll be on a remote server like Amazon where you won't have another option.
 
 Our raw data in this case is fastq files. We don't want to change the original files,
 so let's make a copy to work with.
 
-Lets copy the file using the copy `cp` command. The copy command requires 2 things, the name of the file to copy, and the location to copy it to. Navigate to the `raw_fastq` directory and enter:
+Lets copy the file using the copy `cp` command. Navigate to the `raw_fastq` directory and enter:
 
-```$ cp Mov10_oe_1.subset.fq ~/```
+```$ cp Mov10_oe_1.subset.fq Mov10_oe_1.subset-copy.fq```
 
-```$ ls -l ~/```
+```$ ls -l```
 
-Now ``Mov10_oe_1.subset.fq`` has been created in our home directory as a copy of `Mov10_oe_1.subset.fq`
+Now ``Mov10_oe_1.subset-copy.fq`` has been created as a copy of `Mov10_oe_1.subset.fq`
 
 Let's make a 'backup' directory where we can put this file.
 
 The `mkdir` command is used to make a directory. Just enter `mkdir`
 followed by a space, then the directory name.
 
-```$ mkdir ~/backup```
+```$ mkdir backup```
 
 > File/directory/program names with spaces in them do not work in unix, use characters like hyphens or underscores instead.
 
-We can now move our copied file in to this directory. We can move files around using the command `mv`. Enter this command:
+We can now move our backed up file in to this directory. We can move files around using the command `mv`. Enter this command:
 
-	$ cd ~/
-	$ mv Mov10_oe_1.subset.fq backup
-	
-	$ ls -l backup
+```$ mv *copy.fq backup```
 
-	-rw-rw-r-- 1 mp298 mp298 75706556 Sep 30 13:56 Mov10_oe_1.subset.fq
+```$ ls -al backup```
 
-The `mv` command is also how you rename files. Let's rename this file to remind our future selves that this is a copy:
+	drwxrwsr-x 2 mp298 mp298       43 Sep 30 13:59 .
+	drwxrwsr-x 8 mp298 mp298      203 Sep 30 13:58 ..
+	-rw-rw-r-- 1 mp298 mp298 75706556 Sep 30 13:56 Mov10_oe_1.subset-copy.fq
+
+The `mv` command is also how you rename files. Since this file is so
+important, let's rename it:
 
 ```$ cd backup```
 
-`$ mv Mov10_oe_1.subset.fq Mov10_oe_1.subset-COPY.fq`
+`$ mv Mov10_oe_1.subset-copy.fq Mov10_oe_1.subset-copy.fq_DO_NOT_TOUCH!`
 
 `$ ls`
 
-	Mov10_oe_1.subset-COPY.fq
+	Mov10_oe_1.subset-copy.fq_DO_NOT_TOUCH!
 
-Finally, we decided this was unnecessary and we can just work with the fastq files in `raw_fastq`.
+> Both `mv` and `cp` require that you specify 2 things after the command on the command line: first is the object being copied, moved or renamed, and the second is the destination it's being moved or copied to, or the new name!
 
-```$ cd ..```
+Finally, we decided this was not what we needed to do, and we want to start over with an empty backup directory.
 
-```$ rm backup/Mov*```
+	$ rm Mov10_oe_1.subset-copy.fq_DO_NOT_TOUCH!
 
 > The `rm` file permanently removes the file. Be careful with this command. The shell doesn't
-just nicely put the files in the Trash, they're really gone!
+just nicely put the files in the Trash. They're really gone.
 >
 > Same with moving and renaming files. It will **not** ask you if you are sure that you want to "replace existing file".
 
-****
+*** 
 
 **Exercise**
 
 Do the following:
 
-1.  Create a backup directory called `new_backup`
-2.  Copy all 6 fastq files files there with 1 command
+1. Create a new directory called `backup_ref_data` in `~/ngs_course/unix_lesson/` (bonus points for creating this when you are in the `backup` directory!)
+2. Copy over the contents of the `~/ngs_course/unix_lesson/reference_data/` into `backup_ref_data` after changing directories to `~/ngs_course/unix_lesson/` (if you are not already there).
+3. *Using just one command*, **move** the `raw_fastq/backup/` directory to your current working directory (which is `~/ngs_course/unix_lesson/`) and **rename** it `backup_fastq`.
 
-****
+***
 
-By default, `rm`, will NOT delete directories. You can tell `rm` to delete a directory using the `-r` option. Let's delete both backup directories, `backup` and `new_backup`. Enter the following command:
+We really don't need these backup directories, so, let's delete both. Make sure you have navigated to `~/ngs_course/unix_lesson/`, and now we will use the `rm` command to delete. By default, `rm`, will NOT delete directories, but you use the `-r` option if you are sure that you want to delete the directories and everything within them. To be safe, let's use it with the `i` option.
 
-```$ rm -r new_backup/ backup/```
-
+	$ rm -ri backup_ref_data/ backup_fastq/ 
+	
+> `-r` stands for recursive and is commonly used as an option when working with directories, e.g. with `cp`. 
+> `-i` prompt before every removal
 
 **Commands, options, and keystrokes covered in this lesson**
 

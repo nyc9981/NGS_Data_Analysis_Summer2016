@@ -35,11 +35,12 @@ Let's see what groups we all belong to:
 $ groups
 ```
 
-Depending on our affiliation, we all belong to at least a couple of groups. I belong to 4 groups,
+Depending on our affiliation, we all belong to at least a couple of groups. I belong to 5 groups,
 * rsk27
 * bcbio
 * hbctraining
 * Domain_Users
+* CBMI_pklab
 
 As you can imagine, on a shared system it is important to protect each user's data. To start, every file and directory on a Unix computer belongs to one owner and one group. Along with each file's content, the operating system stores the numeric IDs of the user and group that own it, which is the "metadata" for a given file.
 
@@ -253,12 +254,12 @@ $ ls -al ~/
 
 Open the .bashrc file and at the end of the file add the export command that adds a specific location to the list in $PATH. This way when you start a new shell, that location will always be in your path. 
 
-The location we want to add to the beginning of the list is `/opt/bcbio/local/bin`, we need this for when we run the RNA-Seq workflow tomorrow.
+The location we want to add to the beginning of the list is `/opt/bcbio/centos/bin`, we need this for later in the course.
 
 ```
 $ vim ~/.bashrc
 
-# at the end of the file type in the following - "export PATH=/opt/bcbio/local/bin:$PATH"
+# at the end of the file type in the following - "export PATH=/opt/bcbio/centos/bin:$PATH"
 # Don't forget the ":" between!
 ```
 

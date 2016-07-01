@@ -12,39 +12,10 @@ Approximate time: 1.5 hours
 
 * learn how to use features of the Ensembl biological database and genome browser to access information and data during an NGS analysis
 
-
-## Intro to Ensembl/Biomart
-
-### The Ensembl Project
-![ensembl_logo](../img/e_bang.png)
-
-The [Ensembl genome database](http://ensemblgenomes.org/), developed jointly by the EBI and the Wellcome Trust Sanger Institute, contains genome sequence and annotation information for [vertebrates](http://useast.ensembl.org/index.html), [bacteria](http://ensemblgenomes.org/info/genomes?division=1), [protists](http://ensemblgenomes.org/info/genomes?division=5), [fungi](http://ensemblgenomes.org/info/genomes?division=3), [plants](http://ensemblgenomes.org/info/genomes?division=4) and [invertebrate metazoa](http://ensemblgenomes.org/info/genomes?division=2) species, enabling users to use a single collection of interfaces for accessing and comparing genome-scale data from species across the taxonomy. _**NOTE:** no annotations available through Ensembl for viral genomes._ 
-
-All data are open source (i.e. freely available to the scientific community) and are updated every 2-3 months.
-
-### Ensembl species and annotations
-
-**All supported species have comprehensive, evidence-based gene annotations.** The *Gencode* gene set is used to create the Ensembl annotations and consists of:
-
-- Ensembl (automatically) annotated genes (using mRNA and protein sequences from UniProtKB and NCBI RefSeq) 
-- Havana (manually) annotated genes (human, mouse, zebrafish, rat and pig)
-- Ensembl/Havana merges: transcripts that were identically annotated by both (reviewed annotations)
-
-*Gencode* is the default gene set used by ENCODE, 1000 genomes and other major projects. 
-
-![species_annotations](../img/species_annot.png)
-
-A **selected set of genomes** includes additional data focused on *variation, comparative, evolutionary, functional and regulatory annotation*. The most advanced resources are provided for key species including **human, mouse, rat and zebrafish**.
-
-![variation_species](../img/species_with_variation.png)
-
-
-### Ensembl genome browser
+### Ensembl genome database and browser
 
 #### Overview
 *Ensembl* provides a website that acts as a **single point of access to annotated genomes** for vertebrate species. 
-
-The browser can be used to easily access information at the genome, gene and protein level, such as gene sequence, splice variants, protein domains, genetic variation, homology, and regulatory elements. *Ensembl* imports genome sequences from consortia, which keeps the information consistent with many other bioinformatics projects. 
 
 ![ensembl_homepage](../img/ensembl_interface.png)
 
@@ -65,11 +36,10 @@ The browser can be used to easily access information at the genome, gene and pro
 
 - **News**: To find out what release you are working with, have a look at the news section of the homepage. If the current release is not the one you need, access archive sites to access previous versions, or releases, of Ensembl using the link on the lower right side.
  
-#### Demo
+#### Querying Ensembl 
 Each species in Ensembl has its own home page, where you can find out who provided the genome sequence and which version of the genome assembly is represented.  
 
-1. Click on `View full list of all Ensembl species` link. 
-2. Click on the common name of your species of interest to go to the species homepage. We’ll click on `Human`.
+1. Click on the common name of your species of interest to go to the species homepage. We’ll click on `Human`.
 
 	![ensembl_human](../img/ensembl_human.png)
 
@@ -80,19 +50,8 @@ Each species in Ensembl has its own home page, where you can find out who provid
 	- Information and sequences for the current human genome build
 	- Links to example features in Ensembl
 	- Guides on how to access information on comparative genomics, regulation, and variation
-	
-3. To find out more about genome assembly and the gene build, click on `More information and statistics`. Look over the information given in the statistics table.
 
-	![stats](../img/ensembl_info.png)
-4. Access the FTP site for downloading the reference sequence and gene annotation files for the current genome build for `Human`.
-	
-	a. Click on the `Downloads` tab in the blue bar, then click `Download data via FTP` link under the `Download databases & software` heading.
-	b. Filter the data by typing "Human" in the Filter box in the upper right-hand side of the table.
-
-	![ftp](../img/ensembl_ftp.png)
-
-4. Go back to the human genome page by clicking on the image. In the search bar type `mov10`.
-5. From the search results select `MOV10 (Human Gene)`. The gene page for MOV10 should populate. 
+4. In the search bar type `mov10`, and from the search results select `MOV10 (Human Gene)`. The gene page for MOV10 should populate. 
 	
 	![gene_view](../img/ensembl_mov10_gene.png)
 	
@@ -100,8 +59,8 @@ Each species in Ensembl has its own home page, where you can find out who provid
 	
 	- The top of the page has a **gene overview**, followed by the **transcript table**. All transcripts identified using any evidence are provided in the table. The transcripts are color-coded based on whether the transcript is protein-coding or non-coding, as well as, by the quality of evidence:
 	
-		- **Gold:** protein-coding transcripts are Ensembl/Havana merges - essentially reviewed annotations with highest confidence
-		- **Red:** protein-coding transcripts are less confidence
+		- **Gold:** protein-coding transcripts are reviewed annotations with highest confidence
+		- **Red:** protein-coding transcripts are less confident
 		- **Blue:** non-coding transcripts
 		
 		In addition to coloring, Ensembl also provides flags in the table for **"Transcript Support Levels"**, which highlight how well-supported or poorly-supported are the transcript models.
@@ -133,30 +92,14 @@ Each species in Ensembl has its own home page, where you can find out who provid
 
 	- If you click on `exons`, the sequence for each of the exons will be displayed below. If you click on `12 domains and features` the associated domains are output. If you click on `625 variations`, all variants for the transcript are listed with variation IDs, supporting evidence, and predicted effect on protein function. Additional detailed information on the transcript and protein is available on the side panel. 
 
-7. Let's now visualize our our transcripts for the gene using the `Location` tab. There are three separate parts to this window:
-	- The chromosome with haplotypes and patches flagged within the image. Selecting a region of the chromosome can move you to a new location.
-	- The "Region in detail", which shows a 1Mb region around the selected location on the chromosome. Choosing a different location within this region is also an option.
-	- The bottom image is a detailed, configurable view of the region. You can configure the tracks that appear using the cog on the window bar or you can click on "Configure this page" button on the side of the page.
-	
-	Let's click on `Configure this page` and add some tracks:
-
-	- `dbSNP variants`
-	- `RNASeq models - all brain`
-
-Click the checkmark in the upper right-hand corner of the page when finished with the selections.
+7. Let's now visualize our our transcripts for the gene using the `Location` tab. There are a lot of features available from this genome browser, which we cannot go into due to time limitations, but there are many tutorials available from Ensembl to learn about these features.
 
 
-## Ensembl tools
+## Ensembl Biomart
 
-While Ensembl contains extensive genomic information, we often want to mine the data to export a custom dataset or we would like to use our own data. Ensembl offers a selection of tools to process your own data and to access and mine Ensembl data.
+While Ensembl contains extensive genomic information, we often want to mine the data to export a custom dataset. Ensembl offers the `Biomart` tool for accessing and mining the Ensembl database.
 
-8. Click on `Tools` in the top menu bar. Tools are available for analyzing your own variant data, searching the Ensembl genomes for your DNA or protein sequence, and converting your data's coordinates or Ensembl IDs to a current version. 
-	
-	BioMart is an extremely useful tool used for data-mining Ensembl's database to return your own custom datasets. Let's explore this tool in more depth.
-
-![tools](../img/ensembl_tools.png)
-
-You can access BioMart from any page using the link in the menu bar.
+8. You can access BioMart from any page using the link in the menu bar.
 ![biomart](../img/ensembl_biomart.png)
 
 	
@@ -165,19 +108,25 @@ You can access BioMart from any page using the link in the menu bar.
 
 The BioMart tool for data mining the Ensembl database is easy to use and requires three steps:
 
-- **Choose a dataset.** The dropdown menu allows you to choose from the Ensembl Gene, Ensembl Variation, Ensembl Regulation, and Vega databases. You will then be able to choose your species of interest.
-- **Select your filters or inputs.** You can restrict your query using various criteria, such as genomic region, specific genes, particular variants, etc.
-- **Choose the attributes to output.** You have a wide range of attributes that you can choose your query to output, such as features, structures, and sequence information.
+1. **Choose a dataset.** The dropdown menu allows you to choose from the Ensembl Gene, Ensembl Variation, Ensembl Regulation, and Vega databases. You will then be able to choose your species of interest.
+2. **Select your filters or inputs.** You can restrict your query using various criteria, such as genomic region, specific genes, particular variants, etc.
+3. **Choose the attributes to output.** You have a wide range of attributes that you can choose your query to output, such as features, structures, and sequence information.
 
 ![biomart_homepage](../img/biomart_query.png)
 
-1. Let's use BioMart to information on genomic location and transcript count for the gene list we created in our previous homework, [sigOE_hw.txt](https://raw.githubusercontent.com/hbc/NGS_Data_Analysis_Course/master/sessionIV/results/sigOE_hw.txt). Download this dataset by clicking on the link if you do not already have it on your computer.
-2. Click on `Dataset` and choose the database `Ensembl Genes 83` and `Homo sapiens genes(GRCh38.p5)`. 
+Let's use BioMart to information on genomic location and transcript count for the gene list we created in our previous homework, [sigOE_hw.txt](https://raw.githubusercontent.com/hbc/NGS_Data_Analysis_Course/master/sessionIV/results/sigOE_hw.txt). Download this dataset by clicking on the link if you do not already have it on your computer.
+
+##### **Step 1: Choose a dataset** 
+Click on `Dataset` and choose the database `Ensembl Genes 84` and `Homo sapiens genes(GRCh38.p5)`. 
 _**NOTE:** if we wanted to use an older version of BioMart, we could click on the lower right-hand link to `View in archive site`._
-3. Click on `Filters`. Expand `GENE` and click on the box next to `Input external references ID list`. Choose `HGNC symbol(s)` from the drop-down menu.
-4. Either choose the file `sigOE_hw.txt` or copy and paste the gene names in the file into the text box.
-5. Now click on `Attributes`. Keep `Features` selected.
-6. Expand `GENE` and choose the following:
+
+##### **Step 2: Select your filters or inputs**
+Click on `Filters`. Expand `GENE` and click on the box next to `Input external references ID list`. Choose `HGNC symbol(s)` from the drop-down menu. Either choose the file `sigOE_hw.txt` or copy and paste the gene names in the file into the text box.
+
+##### **Step 3: Choose the attributes to output**
+Click on `Attributes`and keep `Features` selected.
+
+Expand `GENE` and choose the following:
 	
 	- Ensembl Gene ID
 	- Description
@@ -187,8 +136,8 @@ _**NOTE:** if we wanted to use an older version of BioMart, we could click on th
 	- Strand
 	- Associated Gene Name
 	- Transcript count
-7. Click on `Results` button in the upper left-hand corner. Save output to a comma-separated value (CSV) file.
-8. In the HTML table, click on the link for `MOV10` to take you to the Ensembl gene page.
+
+Click on `Results` button in the upper left-hand corner. Save output to a comma-separated value (CSV) file. In the HTML table, click on the link for `MOV10` to take you to the Ensembl gene page.
 
 #### biomaRt R package
 When you are performing an NGS analysis, you often find a need to access BioMart, for example, to find genomic locations, convert gene IDs, or filter sequences from your data. Luckily for us, there is an R package for BioMart, called `biomaRt`, which allows us to perform BioMart queries from R.
@@ -203,75 +152,134 @@ Read in the counts file:
 
 ```
 # Read in counts file
-full_counts <- read.table("data/counts.txt")
-counts <- head(full_counts, n=50)
+
+> full_counts <- read.table("data/counts.txt")
+
+> counts <- head(full_counts, n=50)
 ```
 
 Install the `biomaRt` package. The package is from Bioconductor, so we can use the following code to install:
 
 ```
-source("http://bioconductor.org/biocLite.R")
-biocLite("biomaRt")
+> source("http://bioconductor.org/biocLite.R")
+
+> biocLite("biomaRt")
 ```
 Now load the library:
 
 ```
 # Load library
-library("biomaRt")
+
+> library("biomaRt")
 ```
 
-Connect to a BioMart database:
+Now the same three steps required by the web interface are required by the R package. We are going show how to run the three steps by using BioMart to achieve the following goal: ***Return the gene names for a list of Ensembl mouse IDs***
+
+##### **Step 1: Choose a dataset**
+
+Similar to the web interface, we will choose a database (`Ensembl Genes 84`) and a species dataset (`Mus musculus genes (GRCm38.p4)`). 
+
+Choose a BioMart database - we will choose the `Ensembl Genes 84`:
+
 ```
 # To connect to a BioMart database - useMart()
-listMarts(host =  'www.ensembl.org')
 
-ensembl <- useMart('ENSEMBL_MART_ENSEMBL', 
-                host =  'www.ensembl.org')
+> listMarts(host =  'www.ensembl.org')
+
+> ensembl_genes <- useMart('ENSEMBL_MART_ENSEMBL', host =  'www.ensembl.org')
 ```
 
-Choose a dataset to query:
+Choose the *Mus musculus* genes (GRCm38.p4) dataset within the `Ensembl Genes 84` database:
+
 ```
 # To query the chosen BioMart database for a specific species - useDataset()
-datasets <- listDatasets(ensembl)
-View(datasets)
 
-mart<- useDataset("mmusculus_gene_ensembl", 
-                  useMart('ENSEMBL_MART_ENSEMBL', 
-                          host =  'www.ensembl.org'))
+> datasets <- listDatasets(ensembl_genes)
+
+> View(datasets)
+
+> mouse <- useDataset("mmusculus_gene_ensembl", mart = ensembl_genes)
 ```
 
-Build a query using your specified attributes, filters, and values:
+##### **Step 2: Select your filters or inputs**
+
+We can build a query of our dataset using the `getBM()` function. First we can specify our input using the `filters`argument. 
+
+**What is our input?** We want to return gene names for a list of Ensembl mouse IDs from within our `counts` dataframe; therefore our input will be Ensembl IDs and their values will be the row names of our counts dataframe.
+
 ```
-# To build a query - getBM(filters, attributes, values)
+# To build a query - getBM(filters, values, ...)
+
+## "Filters" is a vector for the type of input; in our case, our input is Ensembl IDs
+
+> filters <- listFilters(mouse)
+
+> View(filters)
+
+> getBM(filters= "ensembl_gene_id", ...)
+
+                    
+## "Values" is a vector of values for the filter; in our case, our Ensembl IDs are the row names of the counts dataset
+
+> getBM(filters= "ensembl_gene_id", 
+		values= row.names(counts), ...)
+```
+
+##### **Step 3: Choose the attributes to output**
+
+We can continue building our `getBM()` function by specifying what we want output for each of our Ensembl IDs using the `attributes` argument. We would like to output the Ensembl ID and the gene name. 
+```
+# To build a query - getBM(filters, values, attributes, ...)
 
 ## "Attributes" is a vector of attributes for the output we want to generate
-attributes <- listAttributes(mart)
-View(attributes)
 
-## "Filters" is a vector for the input to the query
-filters <- listFilters(mart)
-View(filters)
+> attributes <- listAttributes(mouse)
 
-## "Values" is a vector of values for the filter
+> View(attributes)
+
+## Use BioMart to return gene names for a list of Ensembl IDs:
+
+> gene_names <- getBM(filters= "ensembl_gene_id",
+                    values= row.names(counts), 
+                    attributes= c("ensembl_gene_id", "external_gene_name"), ...)
 ```
-Use BioMart to return gene names for a list of Ensembl IDs:
-```
-# Use BioMart to return gene names for a list of Ensembl IDs
-mart <- useDataset("mmusculus_gene_ensembl", 
-                  useMart('ENSEMBL_MART_ENSEMBL', 
-                          host =  'www.ensembl.org'))
 
-gene.names <- getBM(filters= "ensembl_gene_id", 
-                    attributes= c("ensembl_gene_id", "external_gene_name"),
-                    values= row.names(counts),
-                    mart= mart)
+Finally, to complete the `getBM()` function, we need to specify which dataset to query.
 
-ens.id <- row.names(counts)
-GeneName <- gene.names[match(ens.id,gene.names$ensembl_gene_id),"external_gene_name"]
-new <- data.frame(counts,GeneName)
-write.table(new, "results/new_counts.txt", sep="\t")
 ```
-What if you are using an older genome? 
+# To build a query - getBM(filters, values, attributes, mart)
+
+> gene_names <- getBM(filters= "ensembl_gene_id",
+                    values= row.names(counts), 
+                    attributes= c("ensembl_gene_id", "external_gene_name"), 
+                    mart= mouse)
+
+## Now we can run the query. BioMart queries can take a bit of time depending on the size of your dataset and the attributes you are asking for.                    
+
+> View(gene_names)
+                    
+```
+
+Now that we have our gene names, we need to match them to the Ensembl IDs in our counts dataset. If the columns from two dataframes have the same name, we can merge the dataframes using those columns:
+
+```
+# Create column in counts dataset called ensembl_gene_id with the Ensembl IDs
+
+> ensembl_gene_id <- row.names(counts)
+
+# Merge the two dataframes by ensembl_gene_id
+
+> ensembl_results <- merge(counts, gene_names, by="ensembl_gene_id")
+
+# Make the row.names the Ensembl IDs again, and remove the ensembl_gene_id column
+
+> row.names(ensembl_results) <- ensembl_results$ensembl_gene_id
+
+> ensembl_results <- ensembl_results[]
+
+> write.csv(ensembl_results, "results/annotated_counts.csv", quote=F)
+```
+##### What if you are using an older genome? 
 
 Check the archived BioMart sites to determine the archived database desired. 
 
@@ -279,11 +287,17 @@ If we want to use the archived databases in R, we need to change our query a bit
 ```
 # Using an older genome build
 
-mart_mm9 <- useDataset("mmusculus_gene_ensembl",
-                useMart(biomart = "ENSEMBL_MART_ENSEMBL",
-                        host = "may2012.archive.ensembl.org"))
+> ensembl_genes_mm9 <- useMart('ENSEMBL_MART_ENSEMBL', host =  'may2012.archive.ensembl.org')
 
-attributes_mm9 <- listAttributes(mart_mm9)
+> mouse_mm9 <- useDataset("mmusculus_gene_ensembl", mart = ensembl_genes_mm9)
+
+> gene.names_mm9 <- getBM(filters= "ensembl_gene_id", 
+                    attributes= c("ensembl_gene_id", "external_gene_name"),
+                    values= row.names(counts),
+                    mart= mart_mm9)
+
+# The filters and attributes change for different builds of the genome, so you might find yourself looking them up if you change bulids                    
+> attributes_mm9 <- listAttributes(mart_mm9)
 View(attributes_mm9)
 
 gene.names_mm9 <- getBM(filters= "ensembl_gene_id", 
@@ -296,4 +310,3 @@ gene.names_mm9 <- getBM(filters= "ensembl_gene_id",
 
 ***
 *This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
-* _The materials used in this lesson were derived from work that is Copyright © [Ensembl](http://www.ebi.ac.uk/seqdb/confluence/display/ENSEXT/Ensembl+exercises). All Ensembl instructional material is made available under the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0). Special thanks to Giulietta Spudich for providing training materials!_
